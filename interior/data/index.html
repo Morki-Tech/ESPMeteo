@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Estació Meteorològica DIY - Dashboard en temps real">
+    <title>Estació Meteo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+    <header id="header">
+        <div class="header-content">
+            <h1>⛅ Estació Meteorològica</h1>
+            <div class="header-info">
+                <span id="clock" class="clock">--:--:--</span>
+                <span id="status-dot" class="status-dot offline" title="Desconnectat"></span>
+            </div>
+        </div>
+    </header>
+
+    <main id="dashboard">
+        <!-- Fila superior: Cards principals -->
+        <section class="cards-grid" id="cards-section">
+            <!-- Temperatura Interior -->
+            <div class="card" id="card-temp-in">
+                <div class="card-icon">🏠</div>
+                <div class="card-body">
+                    <span class="card-label">Temp. Interior</span>
+                    <span class="card-value" id="temp-in">--</span>
+                    <span class="card-unit">°C</span>
+                </div>
+            </div>
+
+            <!-- Temperatura Exterior -->
+            <div class="card" id="card-temp-out">
+                <div class="card-icon">🌡️</div>
+                <div class="card-body">
+                    <span class="card-label">Temp. Exterior</span>
+                    <span class="card-value" id="temp-out">--</span>
+                    <span class="card-unit">°C</span>
+                </div>
+            </div>
+
+            <!-- Humitat Interior -->
+            <div class="card" id="card-hum-in">
+                <div class="card-icon">💧</div>
+                <div class="card-body">
+                    <span class="card-label">Hum. Interior</span>
+                    <span class="card-value" id="hum-in">--</span>
+                    <span class="card-unit">%</span>
+                </div>
+            </div>
+
+            <!-- Humitat Exterior -->
+            <div class="card" id="card-hum-out">
+                <div class="card-icon">💦</div>
+                <div class="card-body">
+                    <span class="card-label">Hum. Exterior</span>
+                    <span class="card-value" id="hum-out">--</span>
+                    <span class="card-unit">%</span>
+                </div>
+            </div>
+
+            <!-- CO2 -->
+            <div class="card" id="card-co2">
+                <div class="card-icon">🫁</div>
+                <div class="card-body">
+                    <span class="card-label">eCO₂</span>
+                    <span class="card-value" id="eco2">--</span>
+                    <span class="card-unit">ppm</span>
+                </div>
+                <div class="card-bar">
+                    <div class="bar-fill" id="co2-bar"></div>
+                </div>
+            </div>
+
+            <!-- TVOC -->
+            <div class="card" id="card-tvoc">
+                <div class="card-icon">🧪</div>
+                <div class="card-body">
+                    <span class="card-label">TVOC</span>
+                    <span class="card-value" id="tvoc">--</span>
+                    <span class="card-unit">ppb</span>
+                </div>
+            </div>
+
+            <!-- Vent -->
+            <div class="card" id="card-wind">
+                <div class="card-icon">💨</div>
+                <div class="card-body">
+                    <span class="card-label">Vent</span>
+                    <span class="card-value" id="wind">--</span>
+                    <span class="card-unit">m/s</span>
+                </div>
+            </div>
+
+            <!-- Pluja -->
+            <div class="card" id="card-rain">
+                <div class="card-icon">🌧️</div>
+                <div class="card-body">
+                    <span class="card-label">Pluja</span>
+                    <span class="card-value" id="rain">--</span>
+                    <span class="card-unit">mm</span>
+                </div>
+            </div>
+
+            <!-- Bateria exterior -->
+            <div class="card card-small" id="card-battery">
+                <div class="card-icon">🔋</div>
+                <div class="card-body">
+                    <span class="card-label">Bateria Ext.</span>
+                    <span class="card-value" id="battery">--</span>
+                    <span class="card-unit">mV</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gràfics -->
+        <section class="charts-section" id="charts-section">
+            <div class="chart-controls">
+                <button class="btn active" id="btn-6h" data-hours="6">6h</button>
+                <button class="btn" id="btn-12h" data-hours="12">12h</button>
+                <button class="btn" id="btn-24h" data-hours="24">24h</button>
+                <button class="btn" id="btn-48h" data-hours="48">48h</button>
+            </div>
+
+            <div class="chart-container" id="chart-temp-container">
+                <h2>Temperatura</h2>
+                <canvas id="chart-temp"></canvas>
+            </div>
+
+            <div class="chart-container" id="chart-hum-container">
+                <h2>Humitat</h2>
+                <canvas id="chart-hum"></canvas>
+            </div>
+
+            <div class="chart-container" id="chart-air-container">
+                <h2>Qualitat de l'Aire</h2>
+                <canvas id="chart-air"></canvas>
+            </div>
+
+            <div class="chart-container" id="chart-wind-container">
+                <h2>Vent i Pluja</h2>
+                <canvas id="chart-wind"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <span>Estació Meteorològica DIY</span>
+        <span id="uptime">Uptime: --</span>
+        <span id="heap">Heap: --</span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
